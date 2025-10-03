@@ -4,6 +4,10 @@ Caution: this is not the official project. I share it because I am working on th
 
 Offical Demos plz refer: https://github.com/shangmisunmi/SunmiPrinterDemo
 
+> **Platform support**
+>
+> This library only provides native code for Android. When you build an iOS target the JS API remains available, but every method will throw to signal that the functionality is unavailable. Guard your calls with `Platform.OS === 'android'` (or dynamically load the module) if your project ships to multiple platforms.
+
 ## TOC
 
 - [Installation](#Installation)
@@ -44,9 +48,12 @@ fallback stubs that ship in `android/src/oldarch`.
 ## Usage
 
 ```js
+import { Platform } from 'react-native';
 import SunmiPrinter from '@es-webdev/react-native-sunmi-printer';
 
-SunmiPrinter.printerText('Hello World\n');
+if (Platform.OS === 'android') {
+  SunmiPrinter.printerText('Hello World\n');
+}
 ```
 
 ## Scan

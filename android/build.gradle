@@ -11,14 +11,18 @@ buildscript {
   }
 }
 
-apply plugin: 'com.android.library'
-
 def safeExtGet(prop, fallback) {
   rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
 }
 
 def isNewArchitectureEnabled() {
   return project.hasProperty('newArchEnabled') && project.newArchEnabled == 'true'
+}
+
+apply plugin: 'com.android.library'
+
+if (isNewArchitectureEnabled()) {
+  apply plugin: 'com.facebook.react'
 }
 
 android {
@@ -49,6 +53,8 @@ android {
     main {
       if (!isNewArchitectureEnabled()) {
         java.srcDir('src/oldarch')
+      } else {
+        java.srcDir("${project.buildDir}/generated/source/codegen/java")
       }
     }
   }
@@ -68,4 +74,12 @@ dependencies {
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-native:+"  // From node_modules
   implementation "com.sunmi:printerlibrary:1.0.23"
+}
+
+if (isNewArchitectureEnabled()) {
+  react {
+    jsRootDir = file("../src")
+    libraryName = "RNReactNativeSunmiPrinterSpec"
+    codegenJavaPackageName = "com.reactnativesunmiprinter"
+  }
 }

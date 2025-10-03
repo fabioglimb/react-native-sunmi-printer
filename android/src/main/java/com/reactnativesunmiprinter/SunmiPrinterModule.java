@@ -511,12 +511,15 @@ public class SunmiPrinterModule extends NativeSunmiPrinterSpec {
   }
 
   @ReactMethod
-  public void lineWrap(int lines) {
+  public void lineWrap(double lines) {
     if (!ensureService(null)) {
       return;
     }
+
+    int wrappedLines = (int) Math.round(lines);
+
     try {
-      printerService.lineWrap(lines, innerResultCallback);
+      printerService.lineWrap(wrappedLines, innerResultCallback);
     } catch (RemoteException e) {
       Log.e(TAG, "lineWrap failed", e);
     }
