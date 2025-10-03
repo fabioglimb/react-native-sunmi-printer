@@ -5,23 +5,24 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import androidx.core.content.ContextCompat;
 
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.BaseActivityEventListener;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.facebook.react.module.annotations.ReactModule;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class SunmiScanModule extends ReactContextBaseJavaModule {
+@ReactModule(name = SunmiScanModule.NAME)
+public class SunmiScanModule extends NativeSunmiScanModuleSpec {
+  public static final String NAME = "SunmiScanModule";
   private static ReactApplicationContext reactContext;
   private static final int START_SCAN = 0x0000;
   private static final String E_ACTIVITY_DOES_NOT_EXIST = "E_ACTIVITY_DOES_NOT_EXIST";
@@ -71,7 +72,7 @@ public class SunmiScanModule extends ReactContextBaseJavaModule {
 
   @Override
   public String getName() {
-    return "SunmiScanModule";
+    return NAME;
   }
 
   @ReactMethod
@@ -96,7 +97,22 @@ public class SunmiScanModule extends ReactContextBaseJavaModule {
   private void registerReceiver() {
     IntentFilter filter = new IntentFilter();
     filter.addAction(ACTION_DATA_CODE_RECEIVED);
-    ContextCompat.registerReceiver(reactContext, receiver, filter, Context.RECEIVER_EXPORTED);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      reactContext.registerReceiver(receiver, filter, Context.RECEIVER_EXPORTED);
+    } else {
+      reactContext.registerReceiver(receiver, filter);
+    }
+  }
+
+  @Override
+  public void onCatalystInstanceDestroy() {
+    super.onCatalystInstanceDestroy();
+    reactContext.removeActivityEventListener(mActivityEventListener);
+    try {
+      reactContext.unregisterReceiver(receiver);
+    } catch (IllegalArgumentException ignored) {
+      // Receiver already unregistered
+    }
   }
 
   private static void sendEvent(String msg) {

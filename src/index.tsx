@@ -1,6 +1,26 @@
 import { NativeModules } from 'react-native';
 
-const { SunmiPrinter, SunmiScanModule } = NativeModules;
+import NativeSunmiPrinter from './NativeSunmiPrinter';
+import NativeSunmiScanModule from './NativeSunmiScanModule';
+
+const LINKING_ERROR =
+  "The package '@heasy/react-native-sunmi-printer' doesn't seem to be linked.\n" +
+  'Make sure you have run `pod install` for iOS and re-built the app after installing the package.\n' +
+  'If you are developing for Android, rebuild the app after installing the package.';
+
+const isTurboModuleEnabled = (global as any).__turboModuleProxy != null;
+
+const SunmiPrinterModule = isTurboModuleEnabled
+  ? NativeSunmiPrinter
+  : NativeModules.SunmiPrinter;
+
+const SunmiScanTurboModule = isTurboModuleEnabled
+  ? NativeSunmiScanModule
+  : NativeModules.SunmiScanModule;
+
+if (!SunmiPrinterModule) {
+  throw new Error(LINKING_ERROR);
+}
 
 export enum PrinterStyleKey {
   // 文本倍宽
@@ -253,7 +273,7 @@ type SunmiPrinterType = {
    * @param tranBean
    * @description 任务列表
    */
-  commitPrint: (list: any) => void;
+  commitPrint: (list: ReadonlyArray<Record<string, unknown>>) => void;
   /**
    * 进⼊事务模式
    *
@@ -308,7 +328,7 @@ type SunmiPrinterType = {
    * @supported ⽬前仅对S2、T2、T2mini机器 v4.0.0版本以上⽀持此接⼝
    * @description 可以通过此接⼝在部分具有连接钱箱功能的机型上获取钱箱开关状态,
    */
-  getDrawerStatus: () => void;
+  getDrawerStatus: () => Promise<number>;
   /**
    * 打印图片
    * 图⽚最⼤像素需要宽x⾼⼩于250万，且宽度根据纸张规格设置（58为384像素，80为576像素），
@@ -323,10 +343,17 @@ type SunmiPrinterType = {
    * 图⽚像素分辨率⼩于200万，且宽度根据纸张规格设置（58为384像素，80为576像素），如果超
    * 过纸张宽度将不显示
    *
-   * @param bitmap
+   * @param encodedString
+   * @description base64字符串，支持包含 data URI 头
+   * @param pixelWidth
+   * @description 目标像素宽度，超出纸张宽度的部分将会被裁剪
    * @param type
    */
-  printBitmapCustom: (bitmap: any, type: number) => void;
+  printBitmapCustom: (
+    encodedString: string,
+    pixelWidth: number,
+    type: number
+  ) => void;
   /**
    * 打印图⽚(3)
    * 图⽚像素分辨率⼩于200万，且宽度根据纸张规格设置（58为384像素，80为576像素），如果超
@@ -351,9 +378,8 @@ type SunmiScanType = {
   /**
    * 摄像头扫码
    */
-  scan: () => Promise<any>;
+  scan: () => Promise<void>;
 };
+export const SunmiScan = SunmiScanTurboModule as SunmiScanType;
 
-export const SunmiScan = SunmiScanModule as SunmiScanType;
-
-export default SunmiPrinter as SunmiPrinterType;
+export default SunmiPrinterModule as SunmiPrinterType;

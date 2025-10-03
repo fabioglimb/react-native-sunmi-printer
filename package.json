@@ -7,6 +7,14 @@
   "types": "lib/typescript/index.d.ts",
   "react-native": "src/index",
   "source": "src/index",
+  "codegenConfig": {
+    "name": "RNReactNativeSunmiPrinterSpec",
+    "type": "modules",
+    "jsSrcsDir": "./src",
+    "android": {
+      "javaPackageName": "com.reactnativesunmiprinter"
+    }
+  },
   "files": [
     "src",
     "lib",

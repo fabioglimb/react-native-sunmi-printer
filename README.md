@@ -32,6 +32,15 @@ Automatic linking is supported for all platforms (even windows on React native >
 
 Previous versions need to do manual linking.
 
+## New architecture (TurboModules)
+
+Starting with this version the Android implementation ships a TurboModule spec and
+conditional source sets so it works out of the box when the host application enables the
+React Native New Architecture (including Expo SDKs built with `expo prebuild --new-architecture`).
+No additional manual steps are required—just enable the new architecture in your app and
+rebuild. Older apps that keep the legacy architecture continue to build thanks to the
+fallback stubs that ship in `android/src/oldarch`.
+
 ## Usage
 
 ```js
@@ -100,17 +109,15 @@ The example app in this repository shows an example usage of every single API, c
 ## Broadcast-Event-Listener
 
 You can enable `Output Via Broadcast` option in your SUNMI Device `Scanner's Settings` and then listen the `onScanSuccess` Event with the `result`.
-You have to use physical special key buttons on your SUNMI device or soft floating button on your device (if you enabled that)  to trigger infrared scanning for the barcodes . And then afterwards , you can get the result in the `onScanSuccess` event.
+You have to use physical special key buttons on your SUNMI device or soft floating button on your device (if you enabled that) to trigger infrared scanning for the barcodes . And then afterwards , you can get the result in the `onScanSuccess` event.
 
 ```js
-
 useEffect(() => {
   DeviceEventEmitter.addListener('onScanSuccess', (msg) => {
     console.log('result', msg);
   });
   return () => DeviceEventEmitter.removeAllListeners('onScanSuccess');
 }, []);
-
 ```
 
 ## Contributing
