@@ -39,9 +39,9 @@ public abstract class NativeSunmiPrinterSpec extends ReactContextBaseJavaModule 
 
   public abstract void sendRAWData(String data);
 
-  public abstract void setPrinterStyle(int key, int value);
+  public abstract void setPrinterStyle(double key, double value);
 
-  public abstract void setAlignment(int alignment);
+  public abstract void setAlignment(double alignment);
 
   public abstract void setFontName(String typeface);
 
@@ -59,17 +59,17 @@ public abstract class NativeSunmiPrinterSpec extends ReactContextBaseJavaModule 
 
   public abstract void printColumnsString(ReadableArray texts, ReadableArray widths, ReadableArray aligns);
 
-  public abstract void printBitmap(String encodedString, int pixelWidth);
+  public abstract void printBitmap(String encodedString, double pixelWidth);
 
-  public abstract void printBitmapCustom(String encodedString, int pixelWidth, int type);
+  public abstract void printBitmapCustom(String encodedString, double pixelWidth, double type);
 
-  public abstract void printBitmapBase64Custom(String encodedString, int pixelWidth, int type);
+  public abstract void printBitmapBase64Custom(String encodedString, double pixelWidth, double type);
 
-  public abstract void printBarCode(String data, int symbology, int height, int width, int textPosition);
+  public abstract void printBarCode(String data, double symbology, double height, double width, double textPosition);
 
-  public abstract void printQRCode(String data, int modulesize, int errorlevel);
+  public abstract void printQRCode(String data, double modulesize, double errorlevel);
 
-  public abstract void print2DCode(String data, int symbology, int modulesize, int errorlevel);
+  public abstract void print2DCode(String data, double symbology, double modulesize, double errorlevel);
 
   public abstract void commitPrint(ReadableArray transactions);
 
@@ -81,7 +81,7 @@ public abstract class NativeSunmiPrinterSpec extends ReactContextBaseJavaModule 
 
   public abstract void commitPrinterBufferWithCallbacka();
 
-  public abstract void lineWrap(int lines);
+  public abstract void lineWrap(double lines);
 
   public abstract void cutPaper();
 

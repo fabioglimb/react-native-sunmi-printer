@@ -261,24 +261,24 @@ public class SunmiPrinterModule extends NativeSunmiPrinterSpec {
   }
 
   @ReactMethod
-  public void setPrinterStyle(int key, int value) {
+  public void setPrinterStyle(double key, double value) {
     if (!ensureService(null)) {
       return;
     }
     try {
-      printerService.setPrinterStyle(key, value);
+      printerService.setPrinterStyle((int) Math.round(key), (int) Math.round(value));
     } catch (RemoteException e) {
       Log.e(TAG, "setPrinterStyle failed", e);
     }
   }
 
   @ReactMethod
-  public void setAlignment(int alignment) {
+  public void setAlignment(double alignment) {
     if (!ensureService(null)) {
       return;
     }
     try {
-      printerService.setAlignment(alignment, innerResultCallback);
+      printerService.setAlignment((int) Math.round(alignment), innerResultCallback);
     } catch (RemoteException e) {
       Log.e(TAG, "setAlignment failed", e);
     }
@@ -379,11 +379,12 @@ public class SunmiPrinterModule extends NativeSunmiPrinterSpec {
   }
 
   @ReactMethod
-  public void printBitmap(String encodedString, int pixelWidth) {
+  public void printBitmap(String encodedString, double pixelWidth) {
     if (!ensureService(null)) {
       return;
     }
-    Bitmap bitmap = decodeBitmap(encodedString, pixelWidth);
+    int targetWidth = (int) Math.round(pixelWidth);
+    Bitmap bitmap = decodeBitmap(encodedString, targetWidth);
     if (bitmap == null) {
       Log.w(TAG, "printBitmap: failed to decode image");
       return;
@@ -398,22 +399,23 @@ public class SunmiPrinterModule extends NativeSunmiPrinterSpec {
   }
 
   @ReactMethod
-  public void printBitmapCustom(String encodedString, int pixelWidth, int type) {
+  public void printBitmapCustom(String encodedString, double pixelWidth, double type) {
     printBitmapBase64Custom(encodedString, pixelWidth, type);
   }
 
   @ReactMethod
-  public void printBitmapBase64Custom(String encodedString, int pixelWidth, int type) {
+  public void printBitmapBase64Custom(String encodedString, double pixelWidth, double type) {
     if (!ensureService(null)) {
       return;
     }
-    Bitmap bitmap = decodeBitmap(encodedString, pixelWidth);
+    int targetWidth = (int) Math.round(pixelWidth);
+    Bitmap bitmap = decodeBitmap(encodedString, targetWidth);
     if (bitmap == null) {
       Log.w(TAG, "printBitmapBase64Custom: failed to decode image");
       return;
     }
     try {
-      printerService.printBitmapCustom(bitmap, type, innerResultCallback);
+      printerService.printBitmapCustom(bitmap, (int) Math.round(type), innerResultCallback);
     } catch (RemoteException e) {
       Log.e(TAG, "printBitmapBase64Custom failed", e);
     } finally {
@@ -422,36 +424,54 @@ public class SunmiPrinterModule extends NativeSunmiPrinterSpec {
   }
 
   @ReactMethod
-  public void printBarCode(String data, int symbology, int height, int width, int textPosition) {
+  public void printBarCode(String data, double symbology, double height, double width, double textPosition) {
     if (!ensureService(null)) {
       return;
     }
     try {
-      printerService.printBarCode(data, symbology, height, width, textPosition, innerResultCallback);
+      printerService.printBarCode(
+        data,
+        (int) Math.round(symbology),
+        (int) Math.round(height),
+        (int) Math.round(width),
+        (int) Math.round(textPosition),
+        innerResultCallback
+      );
     } catch (RemoteException e) {
       Log.e(TAG, "printBarCode failed", e);
     }
   }
 
   @ReactMethod
-  public void printQRCode(String data, int modulesize, int errorlevel) {
+  public void printQRCode(String data, double modulesize, double errorlevel) {
     if (!ensureService(null)) {
       return;
     }
     try {
-      printerService.printQRCode(data, modulesize, errorlevel, innerResultCallback);
+      printerService.printQRCode(
+        data,
+        (int) Math.round(modulesize),
+        (int) Math.round(errorlevel),
+        innerResultCallback
+      );
     } catch (RemoteException e) {
       Log.e(TAG, "printQRCode failed", e);
     }
   }
 
   @ReactMethod
-  public void print2DCode(String data, int symbology, int modulesize, int errorlevel) {
+  public void print2DCode(String data, double symbology, double modulesize, double errorlevel) {
     if (!ensureService(null)) {
       return;
     }
     try {
-      printerService.print2DCode(data, symbology, modulesize, errorlevel, innerResultCallback);
+      printerService.print2DCode(
+        data,
+        (int) Math.round(symbology),
+        (int) Math.round(modulesize),
+        (int) Math.round(errorlevel),
+        innerResultCallback
+      );
     } catch (RemoteException e) {
       Log.e(TAG, "print2DCode failed", e);
     }
