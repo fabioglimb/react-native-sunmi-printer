@@ -2,14 +2,18 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@heasy/react-native-sunmi-printer": ["./src/index"]
+      "@es-webdev/react-native-sunmi-printer": [
+        "./src/index"
+      ]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react-native",
-    "lib": ["esnext"],
+    "lib": [
+      "esnext"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
@@ -23,6 +27,15 @@
     "strict": true,
     "target": "esnext"
   },
-  "include": ["src", ".eslintrc.js", "babel.config.js"],
-  "exclude": ["node_modules", "lib", "docs", "example"]
+  "include": [
+    "src",
+    ".eslintrc.js",
+    "babel.config.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "lib",
+    "docs",
+    "example"
+  ]
 }

@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import SunmiPrinter, {
   AlignValue,
   SunmiScan,
-} from '@heasy/react-native-sunmi-printer';
+} from '@es-webdev/react-native-sunmi-printer';
 
 export default function App() {
   const _printRecieve = () => {
@@ -64,11 +64,11 @@ export default function App() {
         style={{ ...styles.button, marginTop: 10 }}
         onPress={() => {
           SunmiScan.scan()
-            .then((res) => {
-              console.log(res);
+            .then(() => {
+              console.log('Scan triggered');
             })
-            .catch((err) => {
-              console.log('error---->', err);
+            .catch((error: unknown) => {
+              console.log('error---->', error);
             });
         }}
       >

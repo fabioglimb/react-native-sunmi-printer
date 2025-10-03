@@ -1,22 +1,53 @@
 import { NativeModules } from 'react-native';
 
-import NativeSunmiPrinter from './NativeSunmiPrinter';
-import NativeSunmiScanModule from './NativeSunmiScanModule';
-
 const LINKING_ERROR =
-  "The package '@heasy/react-native-sunmi-printer' doesn't seem to be linked.\n" +
+  "The package '@es-webdev/react-native-sunmi-printer' doesn't seem to be linked.\n" +
   'Make sure you have run `pod install` for iOS and re-built the app after installing the package.\n' +
   'If you are developing for Android, rebuild the app after installing the package.';
 
 const isTurboModuleEnabled = (global as any).__turboModuleProxy != null;
 
-const SunmiPrinterModule = isTurboModuleEnabled
-  ? NativeSunmiPrinter
-  : NativeModules.SunmiPrinter;
+let turboFallbackCause: unknown;
 
-const SunmiScanTurboModule = isTurboModuleEnabled
-  ? NativeSunmiScanModule
-  : NativeModules.SunmiScanModule;
+const getTurboSunmiPrinterModule = (): SunmiPrinterType | null => {
+  if (!isTurboModuleEnabled) {
+    return null;
+  }
+
+  try {
+    return require('./NativeSunmiPrinter').default as SunmiPrinterType;
+  } catch (error) {
+    turboFallbackCause = error;
+    return null;
+  }
+};
+
+const getTurboSunmiScanModule = (): SunmiScanType | null => {
+  if (!isTurboModuleEnabled) {
+    return null;
+  }
+
+  try {
+    return require('./NativeSunmiScanModule').default as SunmiScanType;
+  } catch {
+    return null;
+  }
+};
+
+const SunmiPrinterModule =
+  getTurboSunmiPrinterModule() ??
+  (NativeModules.SunmiPrinter as SunmiPrinterType | undefined);
+
+const SunmiScanModule =
+  getTurboSunmiScanModule() ??
+  (NativeModules.SunmiScanModule as SunmiScanType | undefined);
+
+if (__DEV__ && isTurboModuleEnabled && turboFallbackCause) {
+  console.warn(
+    '[SunmiPrinter] Turbo module was not found, falling back to legacy bridge.',
+    turboFallbackCause
+  );
+}
 
 if (!SunmiPrinterModule) {
   throw new Error(LINKING_ERROR);
@@ -380,6 +411,6 @@ type SunmiScanType = {
    */
   scan: () => Promise<void>;
 };
-export const SunmiScan = SunmiScanTurboModule as SunmiScanType;
+export const SunmiScan = SunmiScanModule as SunmiScanType;
 
 export default SunmiPrinterModule as SunmiPrinterType;

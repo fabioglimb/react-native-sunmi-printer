@@ -1,4 +1,4 @@
-# @heasy/react-native-sunmi-printer
+# @es-webdev/react-native-sunmi-printer
 
 Caution: this is not the official project. I share it because I am working on this device but no any official support in react-native It's welcome to ask any question about the usage,problems or feature required, I will support ASAP.
 
@@ -17,13 +17,13 @@ Offical Demos plz refer: https://github.com/shangmisunmi/SunmiPrinterDemo
 Using npm：
 
 ```bash
-npm install @heasy/react-native-sunmi-printer --save
+npm install @es-webdev/react-native-sunmi-printer --save
 ```
 
 or using yarn：
 
 ```bash
-yarn add @heasy/react-native-sunmi-printer
+yarn add @es-webdev/react-native-sunmi-printer
 ```
 
 ## Linking
@@ -44,7 +44,7 @@ fallback stubs that ship in `android/src/oldarch`.
 ## Usage
 
 ```js
-import SunmiPrinter from '@heasy/react-native-sunmi-printer';
+import SunmiPrinter from '@es-webdev/react-native-sunmi-printer';
 
 SunmiPrinter.printerText('Hello World\n');
 ```
@@ -52,7 +52,7 @@ SunmiPrinter.printerText('Hello World\n');
 ## Scan
 
 ```js
-import { SunmiScan } from '@heasy/react-native-sunmi-printer';
+import { SunmiScan } from '@es-webdev/react-native-sunmi-printer';
 
 useEffect(() => {
   DeviceEventEmitter.addListener('onScanSuccess', (msg) => {

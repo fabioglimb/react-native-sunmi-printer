@@ -1,7 +1,7 @@
 {
-  "name": "@heasy/react-native-sunmi-printer",
-  "version": "1.8.4",
-  "description": "商米内置打印",
+  "name": "@es-webdev/react-native-sunmi-printer",
+  "version": "2.0.1",
+  "description": "Sunmi printer for new architecture",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
@@ -20,6 +20,7 @@
     "lib",
     "android",
     "cpp",
+    "!android/.gradle",
     "!lib/typescript/example",
     "!android/build",
     "!**/__tests__",
@@ -40,13 +41,16 @@
     "sunmi",
     "SunmiPrinterDemo"
   ],
-  "repository": "https://github.com/Surile/react-native-sunmi-printer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/es-webdev/react-native-sunmi-printer.git"
+  },
   "author": "夜雨 <mhecy98@gmail.com> (https://github.com/Surile)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Surile/react-native-sunmi-printer/issues"
+    "url": "https://github.com/es-webdev/react-native-sunmi-printer/issues"
   },
-  "homepage": "https://github.com/Surile/react-native-sunmi-printer#readme",
+  "homepage": "https://github.com/es-webdev/react-native-sunmi-printer#readme",
   "publishConfig": {
     "access": "public"
   },
