@@ -1,6 +1,7 @@
 {
   "name": "@es-webdev/react-native-sunmi-printer",
   "version": "2.0.9",
+  "private": true,
   "description": "Sunmi printer for new architecture",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
