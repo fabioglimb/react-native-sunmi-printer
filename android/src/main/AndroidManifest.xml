@@ -2,5 +2,7 @@
     <original-package android:name="woyou.aidlservice.jiuiv5"/>
     <queries>
         <package android:name="woyou.aidlservice.jiuiv5" />
+        <package android:name="com.sunmi.scanner" />
+        <package android:name="com.sunmi.sunmiqrcodescanner" />
     </queries>
 </manifest>

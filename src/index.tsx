@@ -70,6 +70,11 @@ const createUnsupportedScanModule = (): SunmiScanType => ({
       '[SunmiPrinter] scan is only available on Android devices.'
     );
   },
+  async startScanner() {
+    throw new Error(
+      '[SunmiPrinter] startScanner is only available on Android devices.'
+    );
+  },
 });
 
 const effectiveSunmiPrinterModule =
@@ -447,6 +452,11 @@ type SunmiScanType = {
    * 摄像头扫码
    */
   scan: () => Promise<void>;
+  /**
+   * Start the Sunmi barcode scanner UI and return the scanned value.
+   * Supports QR, EAN, UPC, CODE128, PDF417, DataMatrix, Aztec, and more.
+   */
+  startScanner: () => Promise<string>;
 };
 export const SunmiScan = effectiveSunmiScanModule as SunmiScanType;
 

@@ -17,4 +17,6 @@ public abstract class NativeSunmiScanModuleSpec extends ReactContextBaseJavaModu
   public abstract String getName();
 
   public abstract void scan(Promise promise);
+
+  public abstract void startScanner(Promise promise);
 }
