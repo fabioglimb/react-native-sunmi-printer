@@ -1,7 +1,7 @@
 import { NativeModules, Platform } from 'react-native';
 
 const LINKING_ERROR =
-  "The package '@es-webdev/react-native-sunmi-printer' doesn't seem to be linked.\n" +
+  "The package 'react-native-sunmi-printer' doesn't seem to be linked.\n" +
   'Make sure you have run `pod install` for iOS and re-built the app after installing the package.\n' +
   'If you are developing for Android, rebuild the app after installing the package.';
 

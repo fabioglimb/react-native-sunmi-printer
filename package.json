@@ -1,5 +1,5 @@
 {
-  "name": "@es-webdev/react-native-sunmi-printer",
+  "name": "react-native-sunmi-printer",
   "version": "2.1.0",
   "description": "Sunmi printer and barcode scanner for new architecture",
   "main": "lib/commonjs/index",
