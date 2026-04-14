@@ -20,6 +20,7 @@
     "lib",
     "android",
     "cpp",
+    "expo-module.config.json",
     "!android/.gradle",
     "!lib/typescript/example",
     "!android/build",
