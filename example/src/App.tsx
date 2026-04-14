@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import SunmiPrinter, {
   AlignValue,
   SunmiScan,
-} from '@es-webdev/react-native-sunmi-printer';
+} from 'react-native-sunmi-printer';
 
 export default function App() {
   const _printRecieve = () => {

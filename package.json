@@ -43,14 +43,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/es-webdev/react-native-sunmi-printer.git"
+    "url": "https://github.com/fabioglimb/react-native-sunmi-printer.git"
   },
   "author": "夜雨 <mhecy98@gmail.com> (https://github.com/Surile)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/es-webdev/react-native-sunmi-printer/issues"
+    "url": "https://github.com/fabioglimb/react-native-sunmi-printer/issues"
   },
-  "homepage": "https://github.com/es-webdev/react-native-sunmi-printer#readme",
+  "homepage": "https://github.com/fabioglimb/react-native-sunmi-printer#readme",
   "publishConfig": {
     "access": "public"
   },
