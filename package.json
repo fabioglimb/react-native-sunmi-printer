@@ -20,6 +20,7 @@
     "lib",
     "android",
     "cpp",
+    "react-native.config.js",
     "!android/.gradle",
     "!lib/typescript/example",
     "!android/build",
