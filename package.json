@@ -21,6 +21,7 @@
     "android",
     "cpp",
     "react-native.config.js",
+    "expo-module.config.json",
     "!android/.gradle",
     "!lib/typescript/example",
     "!android/build",
